@@ -209,6 +209,8 @@
   .model-btn:first-of-type{ margin-left:auto; }
   .model-btn:hover, .model-btn:focus-visible{ color: var(--ink); }
   .model-btn:focus-visible{ outline: 2px solid var(--ink); outline-offset: 2px; }
+  .deepdive-btn{ color: var(--accent); }
+  .deepdive-btn:hover, .deepdive-btn:focus-visible{ color: var(--ink); }
   .card-title{
     font-family: var(--display);
     font-weight: 800;
@@ -662,6 +664,55 @@
     margin: 0;
   }
 
+  .brand-deep-card{
+    max-width: 430px;
+    max-height: 86vh;
+  }
+  .deep-intro{
+    font-family: var(--mono);
+    font-size: 11.5px;
+    line-height: 1.5;
+    color: var(--ink-soft);
+    margin: 0 0 20px;
+  }
+  .deep-section{ margin-top: 22px; }
+  .deep-section:first-of-type{ margin-top: 0; }
+  .deep-section-heading{
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--ink);
+    margin: 0 0 8px;
+  }
+  .compare-table{
+    display:grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap:1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    overflow:hidden;
+    margin-top: 6px;
+  }
+  .compare-head{
+    background: var(--ink);
+    color: var(--paper);
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 7px 9px;
+    overflow-wrap: anywhere;
+  }
+  .compare-cell{
+    background: var(--paper);
+    font-size: 12.5px;
+    line-height: 1.4;
+    padding: 7px 9px;
+    color: var(--ink);
+    overflow-wrap: anywhere;
+  }
+
   .frame-intro p{
     font-size: 15px;
     line-height: 1.58;
@@ -797,6 +848,15 @@
   </div>
 </div>
 
+<div class="reframe-detail-modal" id="brandDeepModal">
+  <div class="reframe-detail-card brand-deep-card">
+    <button class="reframe-detail-close" id="brandDeepClose" aria-label="Luk">✕</button>
+    <div class="reframe-detail-eyebrow" id="brandDeepEyebrow">Uddybning</div>
+    <h3 class="reframe-detail-title" id="brandDeepTitle"></h3>
+    <div class="reframe-detail-body" id="brandDeepBody"></div>
+  </div>
+</div>
+
 <script>
 const STACKS = [
   {
@@ -913,7 +973,50 @@ const STACKS = [
                   caseText: 'Kapferer refererer selv til Lacoste som eksempel på prismets diagnostiske styrke ved repositionering. Da Lacoste bevægede sig ud over sin tennisarv til nye markeder, brugte man prismet til at afgøre, hvilke af de seks facetter der kunne overføres, og hvilke der krævede tilpasning: kulturfacetten (fransk elegance med sportslig autenticitet) rejste med til nye kategorier, mens reflektionsfacetten måtte gentænkes for forskellige markeder. Undersøgelser har desuden vist, at Lacoste-brugere ser sig selv som del af en sportslig klub, selv når de ikke dyrker sport, en indsigt Kapferer fremhæver som afgørende for brandets identitetsarbejde.',
                   start: 'Udfyld selv identitetsprismets seks facetter ud fra ledelsens syn, og sammenlign det bagefter med en hurtig imageundersøgelse blandt kunder eller medarbejdere for at afdække identitetsgabet.',
                   sources: ['Kapferer, J-N. (1992) – Strategic Brand Management (første engelske udgave)', 'Kapferer, J-N. (2008) – The New Strategic Brand Management (opdateret udgave)', 'Kapferer, J-N. & Bastien, V. (2009) – The Luxury Strategy']
-                }
+                },
+        deepDive: {
+          title: 'Identitetsprisme — uddybning',
+          intro: 'Baseret på J-N. Kapferer, Strategic Brand Management (1992).',
+          sections: [
+            { heading: 'Hvad er brand identity?', text: 'Begrebet brand identity blev første gang introduceret i Europa af Kapferer i 1986. Det er brandets udadvendte udtryk, herunder navn, varemærke, kommunikation og visuelle fremtoning. Brandets identitet er dets grundlæggende middel til at blive genkendt af forbrugerne, og det, der symboliserer differentieringen fra konkurrenterne.' },
+            { heading: 'Identitet vs. image', compare: {
+              leftLabel: 'Brand identity',
+              rightLabel: 'Brand image',
+              rows: [
+                ['Kilde-/virksomhedsfokuseret', 'Modtager-/målgruppefokuseret'],
+                ['Skabt af ledelsesmæssige aktiviteter', 'Skabt af forbrugerens opfattelser'],
+                ['Kodet af "afsenderen"', 'Afkodet af "modtageren"'],
+                ['Identiteten sendes', 'Imaget modtages/opfattes']
+              ]
+            } },
+            { heading: 'De seks facetter, med eksempler', bullets: [
+              { label: 'Physique', text: 'Den samling af brandets fysiske træk, der bliver fremkaldt i folks bevidsthed, når brandnavnet nævnes. Kapferer fremhæver, at denne facet skal betragtes som brandets grundlag. Eksempel: Orangina, den bugnende flaske og logoet udgør selve fysikken, det man ser for sig, så snart navnet nævnes.' },
+              { label: 'Personality', text: 'Brandets karakter. Kan skabes gennem en bestemt skrivestil, specifikke designtræk eller farveskemaer, eller ved at bruge en person til at vitalisere brandet. Eksempel: Nespresso, George Clooneys rolige, elegante fremtoning i "What else?"-kampagnerne definerer personligheden lige så meget som selve produktet.' },
+              { label: 'Culture', text: 'Det værdisystem og de grundprincipper, et brand baserer sin adfærd på (produkter og kommunikation). Mange associationer i denne kategori er knyttet til oprindelsesland. Eksempel: Coca-Cola appellerer til amerikanske værdier, Mercedes-Benz til tyske, Citroën til franske.' },
+              { label: 'Relationship', text: 'Et brand kan symbolisere en bestemt relation mellem mennesker. Facetten kræver, at brandansvarlige udtrykker den relation, brandet står for. Eksempel: Lexus differentierer sig fra BMW ved at give kunderne en "red carpet"-oplevelse.' },
+              { label: 'Reflection', text: 'Henviser til brandets stereotype bruger og er kilden til identifikation, ikke nødvendigvis den faktiske målgruppe. Eksempel: Coca-Colas kommunikation kan beskrive forbrugerbasen som 15-18-årige (med værdier som sjov, sport og venskab), mens den faktiske målgruppe er langt bredere.' },
+              { label: 'Self-Image', text: 'En slags spejl, målgruppen holder op for sig selv. Eksempel: En Porsche-ejer, der tænker, at andre vil opfatte ham som velhavende, fordi han har råd til så flot en bil. Undersøgelser viser, at Lacoste-brugere ser sig selv som medlemmer af en sportsklub, selv når de ikke dyrker sport.' }
+            ] },
+            { heading: 'Fuldt eksempel: Coca-Cola (Lovemark)', bullets: [
+              { label: 'Physique', text: 'Den legendariske flaske, ét gennemgående flaskedesign, den røde farve.' },
+              { label: 'Personality', text: 'Glæde, gode tider, tilstedeværelse overalt, deling, "Coke hein".' },
+              { label: 'Relationship', text: 'Fællesskab, equity, nærhed, "mere end en flaske".' },
+              { label: 'Culture', text: 'Livsstil, leder, den hemmelige opskrift, amerikanske værdier.' },
+              { label: 'Reflection', text: 'Ung, holdånd, familie, et top-brand.' },
+              { label: 'Self-Image', text: 'Social, rykker grænser, kommunikerer, "mere end en drik".' }
+            ] },
+            { heading: 'Fuldt eksempel: Starbucks', bullets: [
+              { label: 'Physique', text: 'Produktorienteret, kvalitet og bredt udvalg af kaffe, et blødt og hyggeligt miljø ("grønne" farver).' },
+              { label: 'Personality', text: 'Kvalitetsorienteret, traditionel, samlende.' },
+              { label: 'Relationship', text: 'Nærhed, personalisering, venskab, hygge.' },
+              { label: 'Culture', text: 'Engagement, respekt for mennesker og miljø.' },
+              { label: 'Reflection', text: 'Forbundet, et sted at mødes, arbejde og udveksle, kvalitativ, traditionel.' },
+              { label: 'Self-Image', text: 'Kvalitetsorienteret, viderefører traditioner, miljømæssigt og etisk ansvarlig, fokus på menneskelige relationer.' }
+            ] },
+            { heading: 'Konklusion', text: 'Identitetsprismet gør det muligt for brandansvarlige at vurdere styrker og svagheder i deres brand ud fra de seks facetter. Det hjælper også med at pege på veje til at opbygge brandloyalitet og finansiel værdi.' }
+          ],
+          sources: ['Kapferer, J-N. (1992) – Strategic Brand Management']
+        }
       },
       {
         type: 'Teori',
@@ -1670,6 +1773,7 @@ const modelModalInnerEl = document.getElementById('modelModalInner');
 const modelCloseEl = document.getElementById('modelClose');
 
 const MODEL_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+const DEEPDIVE_ICON = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="16" y2="17"/></svg>';
 
 function openModel(model){
   modelModalInnerEl.innerHTML = model && model.url
@@ -1718,6 +1822,56 @@ function closeReframeDetail(){
 reframeDetailCloseEl.addEventListener('click', closeReframeDetail);
 reframeDetailModalEl.addEventListener('click', (e) => {
   if(e.target === reframeDetailModalEl) closeReframeDetail();
+});
+
+const brandDeepModalEl = document.getElementById('brandDeepModal');
+const brandDeepTitleEl = document.getElementById('brandDeepTitle');
+const brandDeepBodyEl = document.getElementById('brandDeepBody');
+const brandDeepCloseEl = document.getElementById('brandDeepClose');
+
+function buildDeepDiveHtml(d){
+  let html = '';
+  if(d.intro){ html += '<p class="deep-intro">' + d.intro + '</p>'; }
+  d.sections.forEach(s => {
+    html += '<div class="deep-section">';
+    html += '<div class="deep-section-heading">' + s.heading + '</div>';
+    if(s.text){
+      html += '<p class="brand-text">' + s.text + '</p>';
+    }
+    if(s.compare){
+      html += '<div class="compare-table">' +
+        '<div class="compare-head">' + s.compare.leftLabel + '</div>' +
+        '<div class="compare-head">' + s.compare.rightLabel + '</div>' +
+        s.compare.rows.map(row =>
+          '<div class="compare-cell">' + row[0] + '</div><div class="compare-cell">' + row[1] + '</div>'
+        ).join('') +
+      '</div>';
+    }
+    if(s.bullets){
+      html += '<div class="brand-subpoints">' + s.bullets.map(bp =>
+        '<div class="brand-subpoint"><div class="brand-subpoint-label">' + bp.label + '</div><p class="brand-subpoint-text">' + bp.text + '</p></div>'
+      ).join('') + '</div>';
+    }
+    html += '</div>';
+  });
+  if(d.sources && d.sources.length){
+    html += '<div class="brand-sources"><div class="frame-section-label">Kilder</div><ul class="brand-sources-list">' +
+      d.sources.map(s => '<li>' + s + '</li>').join('') + '</ul></div>';
+  }
+  return html;
+}
+
+function openDeepDive(deepDive){
+  brandDeepTitleEl.textContent = deepDive.title;
+  brandDeepBodyEl.innerHTML = buildDeepDiveHtml(deepDive);
+  brandDeepModalEl.classList.add('is-open');
+}
+function closeDeepDive(){
+  brandDeepModalEl.classList.remove('is-open');
+}
+brandDeepCloseEl.addEventListener('click', closeDeepDive);
+brandDeepModalEl.addEventListener('click', (e) => {
+  if(e.target === brandDeepModalEl) closeDeepDive();
 });
 
 function pad(n){ return n < 10 ? '0' + n : '' + n; }
@@ -1847,6 +2001,10 @@ function renderCard(stack, index, animate){
       ).join('')
     : '';
 
+  const deepDiveBtnHtml = card.deepDive
+    ? '<button class="model-btn deepdive-btn" data-deepdive="1" aria-label="Se uddybning: ' + card.deepDive.title + '">' + DEEPDIVE_ICON + '</button>'
+    : '';
+
   const subtitleHtml = card.subtitle
     ? '<div class="card-subtitle">' + card.subtitle + '</div>'
     : '';
@@ -1890,7 +2048,7 @@ function renderCard(stack, index, animate){
   cardEl.className = 'card' + (animate ? ' is-entering' : '');
   cardEl.innerHTML =
     '<div class="card-inner">' +
-      '<div class="card-meta"><span class="code">' + code + '</span><span class="bullet">●</span><span class="type">' + card.type + '</span>' + modelBtnHtml + '</div>' +
+      '<div class="card-meta"><span class="code">' + code + '</span><span class="bullet">●</span><span class="type">' + card.type + '</span>' + modelBtnHtml + deepDiveBtnHtml + '</div>' +
       '<h2 class="card-title">' + card.title + '</h2>' +
       subtitleHtml +
       '<div class="card-body">' + bodyHtml + '</div>' +
@@ -1903,9 +2061,15 @@ function renderCard(stack, index, animate){
   cardsEl.appendChild(cardEl);
 
   if(hasModels){
-    cardEl.querySelectorAll('.model-btn').forEach((btn) => {
+    cardEl.querySelectorAll('.model-btn[data-model-idx]').forEach((btn) => {
       const idx = parseInt(btn.getAttribute('data-model-idx'), 10);
       btn.addEventListener('click', () => openModel(card.models[idx]));
+    });
+  }
+
+  if(card.deepDive){
+    cardEl.querySelectorAll('.deepdive-btn').forEach((btn) => {
+      btn.addEventListener('click', () => openDeepDive(card.deepDive));
     });
   }
 
